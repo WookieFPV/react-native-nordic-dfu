@@ -216,7 +216,7 @@ RCT_EXPORT_METHOD(startDFU:(NSString *)deviceAddress
       } else {
         CBPeripheral * peripheral = [peripherals objectAtIndex:0];
 
-        NSURL * url = [NSURL URLWithString:filePath];
+        NSURL * url = [[NSURL alloc] initFileURLWithPath:filePath];
 
         DFUFirmware * firmware = [[DFUFirmware alloc] initWithUrlToZipFile:url];
 
@@ -233,7 +233,7 @@ RCT_EXPORT_METHOD(startDFU:(NSString *)deviceAddress
 
         [NSThread sleepForTimeInterval: 1]; //Work around for being stuck in iOS 13
 
-        DFUServiceController * controller = [initiator start];
+        DFUServiceController * controller = [initiator startWithTarget: peripheral];
       }
     }
   }
